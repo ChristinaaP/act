@@ -13,8 +13,9 @@ function onBodyLoad() {
 document.addEventListener("deviceready",onDeviceReady,
 false);
 }
+
 function onDeviceReady() {
-  navigator.notification.alert("Wawawa",alertDismissed,"Lalala","fin");
+  navigator.notification.alert("Acceso",alertDismissed,"Yeah","fin");
 } 
     function capturePhoto() {
        navigator.camera.getPicture(onSuccess, onFail, { quality: 50, 
@@ -32,11 +33,20 @@ function onFail(message) {
     alert('Failed because: ' + message);
 }
 
+function captureA(){
+var options = { limit: 3, duration: 10 };
+navigator.device.capture.captureAudio(captureSuccess, captureError, options);
+}
+
+function captureError(){
+ navigator.notification.alert("Falló audio"); 
+}
+}
     </script>
   </head>
   <body>
     <button onclick="capturePhoto();">Capture Photo</button> <br>
-   
+   <button onclick="captureA();">Capture Audio</button> <br>
     <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
     <img style="display:none;" id="largeImage" src="" />
   </body>
