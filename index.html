@@ -15,8 +15,6 @@ false);
 }
 
 function onDeviceReady() {
-   
-   destinationType=navigator.camera.DestinationType;
   navigator.notification.alert("Acceso",alertDismissed,"Yeah","fin");
 } 
     function capturePhoto() {
@@ -37,12 +35,21 @@ function onFail(message) {
 
 
 
-function getPhoto(source) {
-      // Retrieve image file location from specified source
-      navigator.camera.getPicture(OnSuccess, onFail, { quality: 50, 
-        destinationType: destinationType.FILE_URI,
-        sourceType: source });
-    }
+function playAudio(url) {
+    // Play the audio file at url
+    var my_media = new Media(url,
+        // success callback
+        function() {
+            console.log("playAudio():Audio Success");
+        },
+        // error callback
+        function(err) {
+            console.log("playAudio():Audio Error: "+err);
+    });
+
+    // Play audio
+    my_media.play();
+}
 
 
 
@@ -52,7 +59,7 @@ function getPhoto(source) {
   </head>
   <body>
     <button onclick="capturePhoto();">Capture Photo</button> <br>
-   <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">Get photo</button> <br>
+   <button onclick="playAudio(media/Madness - Muse.mp3)">Play audio</button> <br>
     <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
     <img style="display:none;" id="largeImage" src="" />
   </body>
