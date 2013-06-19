@@ -10,8 +10,7 @@ charset=utf-8">
 
 <script type="text/javascript" charset="utf-8">
 function onBodyLoad() {
-document.addEventListener("deviceready",onDeviceReady,
-false);
+document.addEventListener("deviceready",onDeviceReady,false);
 }
 
 function onDeviceReady() {
@@ -19,7 +18,23 @@ function onDeviceReady() {
   
 }
 
-function playAudio() {
+ function capturePhoto() {
+      // Take picture using device camera and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+        destinationType: Camera.DestinationType.DATA_URL });
+    }
+
+function onSuccess(imageData) {
+    var image = document.getElementById('myImage');
+    image.src = "data:image/jpeg;base64," + imageData;
+}
+
+function onFail(message) {
+    alert('Failed because: ' + message);
+}
+
+
+function playAudio(source) {
     // Play the audio file at url
     var my_media = new Media(url,
         // success callback
@@ -39,8 +54,8 @@ function playAudio() {
     </script>
   </head>
   <body>
-    
-   <button onclick="playAudio("http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3")">Play audio</button> <br>
+     <button onclick="capturePhoto();">Capture Photo</button> <br>
+   <button onclick="playAudio("http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3");">Play audio</button> <br>
     <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
     <img style="display:none;" id="largeImage" src="" />
   </body>
