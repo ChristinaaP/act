@@ -16,26 +16,7 @@ false);
 
 function onDeviceReady() {
   navigator.notification.alert("Acceso",alertDismissed,"Yeah","fin");
-} 
-    function capturePhoto() {
-       navigator.camera.getPicture(onSuccess, onFail, { quality: 50, 
-    destinationType: Camera.DestinationType.FILE_URI }); 
-    }
-
-  
-
-function onSuccess(imageURI) {
-    var image = document.getElementById('myImage');
-    image.src = imageURI;
-}
-
-function onFail(message) {
-    alert('Failed because: ' + message);
-}
-
-
-
-function playAudio(url) {
+  function playAudio(url) {
     // Play the audio file at url
     var my_media = new Media(url,
         // success callback
@@ -50,15 +31,11 @@ function playAudio(url) {
     // Play audio
     my_media.play();
 }
-
-
-
-
 }
     </script>
   </head>
   <body>
-    <button onclick="capturePhoto();">Capture Photo</button> <br>
+    
    <button onclick="playAudio(media/Madness - Muse.mp3)">Play audio</button> <br>
     <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
     <img style="display:none;" id="largeImage" src="" />
