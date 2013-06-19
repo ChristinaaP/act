@@ -7,36 +7,57 @@ charset=utf-8">
 <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
 
 <script type="text/javascript" charset="utf-8">
-function onBodyLoad() {
-document.addEventListener("deviceready",onDeviceReady,
-false);
-}
-function onDeviceReady() {
+document.addEventListener("deviceready", onDeviceReady, false);
 
-
-var options = new ContactFindOptions();
-        options.filter="Bob"; 
-        var fields = ["displayName", "name"];
-        navigator.contacts.find(fields, onSuccess, onError, options);
-    }
-
-    // onSuccess: Get a snapshot of the current contacts
+    // Cordova is ready
     //
-    function onSuccess(contacts) {
-        for (var i=0; i<contacts.length; i++) {
-            console.log("Display Name = " + contacts[i].displayName);
-        }
+    function onDeviceReady() {
+        // create
+        var contact = navigator.contacts.create();
+        contact.displayName = "Plumber";
+        contact.nickname = "Plumber";       //specify both to support all devices
+        var name = new ContactName();
+        name.givenName = "Jane";
+        name.familyName = "Doe";
+        contact.name = name;
+
+        // save
+        contact.save(onSaveSuccess,onSaveError);
+
+        // clone
+        var clone = contact.clone();
+        clone.name.givenName = "John";
+        console.log("Original contact name = " + contact.name.givenName);
+        console.log("Cloned contact name = " + clone.name.givenName); 
+
+        // remove
+        contact.remove(onRemoveSuccess,onRemoveError);
     }
 
-    // onError: Failed to get the contacts
+    // onSaveSuccess: Get a snapshot of the current contacts
     //
-    function onError(contactError) {
-        alert('onError!');
+    function onSaveSuccess(contact) {
+        alert("Save Success");
     }
 
+    // onSaveError: Failed to get the contacts
+    //
+    function onSaveError(contactError) {
+        alert("Error = " + contactError.code);
+    }
 
-function alertDismissed() {   // do something
-}
+    // onRemoveSuccess: Get a snapshot of the current contacts
+    //
+    function onRemoveSuccess(contacts) {
+        alert("Removal Success");
+    }
+
+    // onRemoveError: Failed to get the contacts
+    //
+    function onRemoveError(contactError) {
+        alert("Error = " + contactError.code);
+    }
+
 </script>
 
 </head>
